@@ -32,9 +32,11 @@ public:
 
 private:
     std::unique_ptr<Detector> m_detector;
+    std::unique_ptr<Detector> m_motionDetector;
     std::unique_ptr<Tracker> m_tracker;
     bool m_isInitTracker;
 //    FrameInfo m_frames[2];
     TrackerSetting m_settings;
     std::shared_ptr<Buff<FrameInfo>> m_frameBuff;
+ //   cv::Rect2d motionROI;
 };

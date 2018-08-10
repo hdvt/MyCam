@@ -57,10 +57,10 @@ void BackgroundSubtract::Subtract(const cv::Mat& gray, cv::Mat& foreground)
             break;
         }
     }
-    // cv::imshow("Original Foreground", foreground);
+   //  cv::imshow("Original Foreground", foreground);
     cv::medianBlur(foreground, foreground, 9);
-    for (int i = 0; i < 1; i++)
-        cv::erode(foreground, foreground,cv::Mat());
+   // for (int i = 0; i < 1; i++)
+   //     cv::erode(foreground, foreground,cv::Mat());
     for (int i = 0; i < 5; i++)
          cv::dilate(foreground, foreground,cv::Mat());  
     // cv::medianBlur(foreground, foreground, 3);
@@ -68,5 +68,5 @@ void BackgroundSubtract::Subtract(const cv::Mat& gray, cv::Mat& foreground)
     // cv::Mat dilateElement = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3), cv::Point(-1, -1));
     // cv::dilate(foreground, foreground, dilateElement, cv::Point(-1, -1), 2);
 
-   // cv::imshow("Filtered Foreground", foreground);
+   //cv::imshow("Filtered Foreground", foreground);
 }

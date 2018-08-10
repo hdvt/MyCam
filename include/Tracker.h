@@ -8,6 +8,7 @@ public:
     Tracker(const TrackerSetting& settings);
     ~Tracker();
     void Update(const regions_t& regions, cv::Mat grayFrame);
+    void Update(FrameInfo &frameInfo);
     void Matching(const regions_t regions, cv::Mat grayFrame);
     tracks_t m_tracks;
 private:

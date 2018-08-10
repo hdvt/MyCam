@@ -53,7 +53,7 @@ void MLDetector::Detect(FrameInfo &frameInfo)
             Region region(roi);
             cv::Point2f center(roi.x + 0.5f * roi.width, roi.y + 0.5f * roi.height);
             cv::Mat roiIM = frameInfo.gray(roi);
-            if (1 == 1)
+            if (1 == 0)
             {
                  cv::goodFeaturesToTrack(roiIM, region.m_regions, 500, 0.01, 10, cv::Mat(), 3, 3, 0, 0.04);    
                  for (int j = 0; j < region.m_regions.size(); j++)

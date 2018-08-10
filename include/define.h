@@ -8,7 +8,8 @@ namespace tracking
     enum class Detectors
     {
         MOTION_MOG2,
-        ML_HOGSVM
+        ML_HOGSVM,
+        ML_MOTION
     };
 
     enum class Trackers
@@ -54,11 +55,16 @@ struct FrameInfo
     cv::Mat frame;
     cv::Mat gray;
     regions_t m_regions;
+    regions_t m_motionRegions;
+    cv::Rect m_motionROI;
+    int64 m_dt;
 
 };
 struct TrackerSetting
 {
     std::string m_inFile;
+    std::string m_outFile;
+    size_t m_fps;
     config_t detectorSettings;
     track_t distThres = 50;
     track_t m_dt = 0.5;

@@ -8,6 +8,7 @@ class MotionDetector : public Detector
     ~MotionDetector();
     virtual bool Init(const config_t &configs);
     virtual void Detect(FrameInfo &frame);
+    virtual void DetectInROI(FrameInfo &frame);
     virtual bool CheckObjSize(const cv::Rect &r);
     void DetectContour();
 

@@ -5,6 +5,7 @@ const char* keys =
 {
     "{ @1             |../data/sunday.mp4  | movie file | }"
     "{ dt detection_type |0                 | select detector type   | }"
+    "{ -s output_url | output.mp4                 | save tracked video   | }"
 };
 
 // ----------------------------------------------------------------------
