@@ -35,6 +35,7 @@ Detector* Detector::GetDetector(tracking::Detectors detectorType, config_t &sett
             //std::cout << "switch";
             break;       
         case tracking::Detectors::ML_HOGSVM:
+        case tracking::Detectors::ML_MOTION:
             detector = new MLDetector();
             //std::cout << "switch";
             break;                      

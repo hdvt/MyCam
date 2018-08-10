@@ -6,37 +6,33 @@
 #include <condition_variable>
 #include "define.h"
 #include "Buff.h"
-#include "Detector.h"
+#include "DetectorFactory.h"
 #include "Tracker.h"
-
+#include "VideoProcessing.h"
 class TrackingSystem
 {
 public:
     
-    TrackingSystem(const cv::CommandLineParser& parser);
+    TrackingSystem();
     ~TrackingSystem();
-  //  virtual void InitTracker();
-    void InitWindows();
-    bool InitTracker(FrameInfo& frameInfo);
-    void Process();
-    void Detect(FrameInfo& frameInfo);
+    bool Init(const cv::CommandLineParser& parser);
+    //void InitWindows();
+    bool InitTracker(const FrameInfo& frameInfo);
+    void Start();
     void Tracking(FrameInfo& frameInfo);
-    void CaptureAndDetecting(
-        bool* stopCapture,
+    void Detecting(
         std::mutex* frameLock, 
         std::condition_variable* frameCond
         );
     void DrawData(cv::Mat frame);  //
     void DrawData(FrameInfo& frameInfo); 
     void DrawTrack(cv::Mat frame, const Track& track);
-
+    void SetSetting(const cv::CommandLineParser& parser);
 private:
     std::unique_ptr<Detector> m_detector;
-    std::unique_ptr<Detector> m_motionDetector;
     std::unique_ptr<Tracker> m_tracker;
+    VideoProcessing m_videoProcessor;
     bool m_isInitTracker;
-//    FrameInfo m_frames[2];
     TrackerSetting m_settings;
     std::shared_ptr<Buff<FrameInfo>> m_frameBuff;
- //   cv::Rect2d motionROI;
 };

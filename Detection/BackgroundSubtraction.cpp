@@ -1,19 +1,18 @@
-#include "BackgroundSubtract.h"
+#include "BackgroundSubtraction.h"
 
-BackgroundSubtract::BackgroundSubtract(BGFG_ALGS algType) : m_algType(algType)
+BackgroundSubtraction::BackgroundSubtraction(BGFG_ALGS algType) : m_algType(algType)
 {
-//    Init(config);
 }
 
-BackgroundSubtract::~BackgroundSubtract()
+BackgroundSubtraction::~BackgroundSubtraction()
 {
 
 }
-bool BackgroundSubtract::Init(const config_t& config)
+bool BackgroundSubtraction::Init(const config_t& config)
 {
     switch(m_algType)
     {
-        case BackgroundSubtract::BGFG_ALGS::ALG_MOG2:
+        case BackgroundSubtraction::BGFG_ALGS::ALG_MOG2:
         {    
             std::vector<std::string> paramsConf = { "history", "varThreshold", "detectShadows" };
             auto params = std::make_tuple(500, 16, 1);
@@ -38,7 +37,7 @@ bool BackgroundSubtract::Init(const config_t& config)
                     }
                 }
             }
-            m_model = cv::createBackgroundSubtractorMOG2(std::get<0>(params), std::get<1>(params), std::get<2>(params) != 0).dynamicCast<cv::BackgroundSubtractor>();
+            m_subtractor = cv::createBackgroundSubtractorMOG2(std::get<0>(params), std::get<1>(params), std::get<2>(params) != 0).dynamicCast<cv::BackgroundSubtractor>();
             return true;
             break;
         }
@@ -46,13 +45,13 @@ bool BackgroundSubtract::Init(const config_t& config)
     return false;
 }
 
-void BackgroundSubtract::Subtract(const cv::Mat& gray, cv::Mat& foreground)
+void BackgroundSubtraction::Subtract(const cv::Mat& gray, cv::Mat& foreground)
 {
      switch (m_algType)
     {   
         case BGFG_ALGS::ALG_MOG2:
         {
-            m_model->apply(gray, foreground);
+            m_subtractor->apply(gray, foreground);
             cv::threshold(foreground, foreground, 200, 255, cv::THRESH_BINARY);
             break;
         }

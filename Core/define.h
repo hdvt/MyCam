@@ -2,6 +2,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <memory>
 #include <opencv2/opencv.hpp>
 namespace tracking
 {
@@ -55,8 +56,7 @@ struct FrameInfo
     cv::Mat frame;
     cv::Mat gray;
     regions_t m_regions;
-    regions_t m_motionRegions;
-    cv::Rect m_motionROI;
+//    regions_t m_motionRegions;
     int64 m_dt;
 
 };
@@ -74,3 +74,4 @@ struct TrackerSetting
     tracking::KalmanType m_kalmanType = tracking::KalmanLinear;
     size_t m_maximumAllowedSkippedFrames = 25;
 };
+

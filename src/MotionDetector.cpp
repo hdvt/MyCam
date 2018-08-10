@@ -14,6 +14,19 @@ bool MotionDetector::Init(const config_t &configs)
     return m_BSubtractor->Init(configs);
 }
 
+void MotionDetector::DetectInROI(FrameInfo &frame)
+{
+   cv::Mat roiGay = frame.gray(frame.m_motionROI);
+   if (m_foreGround.size() != roiGay.size())
+	 m_foreGround = roiGay.clone();
+   m_BSubtractor->Subtract(roiGay, m_foreGround);
+   DetectContour();
+   for(int i = 0; i < m_regions.size(); i++)
+   {
+	   m_regions[i].m_rect.x += frame.m_motionROI.x;
+	   m_regions[i].m_rect.y += frame.m_motionROI.y; 
+   }
+}
 void MotionDetector::Detect(FrameInfo &frame)
 {
    m_BSubtractor->Subtract(frame.gray, m_foreGround);
