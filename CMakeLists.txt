@@ -17,9 +17,18 @@ if (OpenCV_FOUND)
     set (LIBS ${LIBS} ${OpenCV_LIBRARIES} )
 endif (OpenCV_FOUND)
 
+# include Dlib library
 include ( /usr/include/dlib/cmake )
-include_directories(include)
-file (GLOB SOURCES "src/*.cpp")
-add_executable(mycam ${SOURCES})
+
+include_directories ( ${PROJECT_SOURCE_DIR}/Core
+                      ${PROJECT_SOURCE_DIR}/Utils
+                      ${PROJECT_SOURCE_DIR}/Detection
+                      ${PROJECT_SOURCE_DIR}/Tracking)
+
+file (GLOB CORE_SOURCES "${PROJECT_SOURCE_DIR}/Core/*.cpp")
+file (GLOB UTILS_SOURCES "${PROJECT_SOURCE_DIR}/Utils/*.cpp")
+file (GLOB DETECTION_SOURCES "${PROJECT_SOURCE_DIR}/Detection/*.cpp")
+file (GLOB TRACKER_SOURCES "${PROJECT_SOURCE_DIR}/Tracking/*.cpp")
+add_executable(mycam ${CORE_SOURCES} ${UTILS_SOURCES} ${DETECTION_SOURCES} ${TRACKER_SOURCES})
 
 target_link_libraries ( mycam dlib::dlib ${LIBS} ) 
